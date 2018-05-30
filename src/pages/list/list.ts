@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DetailsPage } from '../details/details';
 
 /**
  * Generated class for the ListPage page.
@@ -32,5 +33,11 @@ export class ListPage {
       description: 'John2 is also a wonderful poney'
     }];
   }
+
+  showPoney(event, poney) {
+    this.navCtrl.push(DetailsPage, {
+      poney: poney
+    });
+}
 
 }
