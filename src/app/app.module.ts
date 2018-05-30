@@ -7,11 +7,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { IonicStorageModule } from '@ionic/storage';
 
+
 import { MyApp } from './app.component';
 import { ListPage } from '../pages/list/list';
 import { DetailsPage } from '../pages/details/details';
 
 import { PonyService } from '../services/PonyService'
+import { StorageService } from '../services/StorageService'
+
 
 @NgModule({
   declarations: [
@@ -35,6 +38,7 @@ import { PonyService } from '../services/PonyService'
     StatusBar,
     SplashScreen,
     PonyService,
+    StorageService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
