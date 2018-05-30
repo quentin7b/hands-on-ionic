@@ -25,6 +25,10 @@ export class DetailsPage {
     console.log('ionViewDidLoad DetailsPage');
   }
 
+  private toggleFavorite() {
+    console.log('Favorite switch')
+  }
+
   static navigationParameters(poney: any): any {
     return {
       poney: poney

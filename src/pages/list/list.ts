@@ -27,13 +27,13 @@ export class ListPage {
     console.log('ionViewDidLoad ListPage');
     this.ponyService.allPonies().subscribe(
       data => this.ponies = data,
-      err => console.error('Oops in API'),
+      err => console.error('Oops in API', err),
       () => console.log('Pony API responded')
     );
   }
 
   showPoney(poney) {
     this.navCtrl.push(DetailsPage, DetailsPage.navigationParameters(poney));
-}
+  }
 
 }

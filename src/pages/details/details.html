@@ -13,6 +13,24 @@
 </ion-header>
 
 
-<ion-content padding>
-  {{ poney.name }}
+<ion-content>
+  <img src="{{ poney.avatar_url }}" />
+  <ion-grid padding>
+    <ion-row align-items-center>
+      <ion-col>
+        <ion-label class="label label-md" col-auto>
+          <h1>{{ poney.name }}</h1>
+        </ion-label>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button clear icon-only (click)="toggleFavorite()">
+          <ion-icon name="bookmark"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <hr>
+  <p padding>
+    {{ poney.description }}
+  </p>
 </ion-content>
