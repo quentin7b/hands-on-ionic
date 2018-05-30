@@ -7,11 +7,20 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>List</ion-title>
+    <ion-title>THe Poney Heaven</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+    <ion-list>
+        <ion-item ion-item *ngFor="let poney of ponies" (click)="showPoney(poney)">
+            <ion-avatar item-start>
+              <img src="{{ poney.avatar_url }}">
+            </ion-avatar>
+            <h2>{{ poney.name }}</h2>
+            <p>{{ poney.description }}</p>
+          </ion-item> 
+      </ion-list>
 </ion-content>
