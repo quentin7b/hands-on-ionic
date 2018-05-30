@@ -15,11 +15,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DetailsPage {
 
+  poney: {}
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.poney = navParams.get("poney");
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailsPage');
+  }
+
+  static navigationParameters(poney: any): any {
+    return {
+      poney: poney
+    }
   }
 
 }

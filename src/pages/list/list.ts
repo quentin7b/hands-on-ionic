@@ -34,10 +34,8 @@ export class ListPage {
     }];
   }
 
-  showPoney(event, poney) {
-    this.navCtrl.push(DetailsPage, {
-      poney: poney
-    });
+  showPoney(poney) {
+    this.navCtrl.push(DetailsPage, DetailsPage.navigationParameters(poney));
 }
 
 }
