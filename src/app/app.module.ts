@@ -12,7 +12,7 @@ import { MyApp } from './app.component';
 import { ListPage } from '../pages/list/list';
 import { DetailsPage } from '../pages/details/details';
 
-import { PonyService } from '../services/PonyService'
+import { APIService } from '../services/APIService'
 import { StorageService } from '../services/StorageService'
 
 
@@ -37,7 +37,7 @@ import { StorageService } from '../services/StorageService'
   providers: [
     StatusBar,
     SplashScreen,
-    PonyService,
+    APIService,
     StorageService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

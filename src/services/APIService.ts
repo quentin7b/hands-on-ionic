@@ -6,7 +6,7 @@ import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
  
 @Injectable()
-export class PonyService {
+export class APIService {
  
     constructor(private http:Http) {
  
