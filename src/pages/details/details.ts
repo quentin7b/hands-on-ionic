@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { StorageService } from '../../services/StorageService';
+
 /**
  * Generated class for the DetailsPage page.
  *
@@ -15,18 +17,29 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DetailsPage {
 
-  poney: {}
+  poney: {};
+  isFav: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storageService: StorageService) {
     this.poney = navParams.get("poney");
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailsPage');
+    this
+      .storageService
+      .isFav(this.poney)
+      .then(isFav => {
+        console.log('looks fav ?', isFav)
+      })
+      .catch(error => {
+        console.error('Cant know if fav');
+      })
   }
 
-  private toggleFavorite() {
+  toggleFavorite() {
     console.log('Favorite switch')
+    this.isFav = !this.isFav;
   }
 
   static navigationParameters(poney: any): any {
