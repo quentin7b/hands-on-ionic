@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DetailsPage } from '../details/details';
 
+import { PonyService } from '../../services/PonyService'
+
 /**
  * Generated class for the ListPage page.
  *
@@ -18,20 +20,16 @@ export class ListPage {
 
   ponies: any[]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private ponyService: PonyService) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListPage');
-    this.ponies = [{
-      avatar_url: 'https://fr.cdn.v5.futura-sciences.com/buildsv6/images/mediumoriginal/4/6/5/46540c971c_nodam_2933-1024x768-3798d.jpg',
-      name: 'John',
-      description: 'John is a wonderful poney'
-    }, {
-      avatar_url: 'https://fr.cdn.v5.futura-sciences.com/buildsv6/images/mediumoriginal/4/6/5/46540c971c_nodam_2933-1024x768-3798d.jpg',
-      name: 'Joh 2',
-      description: 'John2 is also a wonderful poney'
-    }];
+    this.ponyService.allPonies().subscribe(
+      data => this.ponies = data,
+      err => console.error('Oops in API'),
+      () => console.log('Pony API responded')
+    );
   }
 
   showPoney(poney) {
