@@ -29,17 +29,32 @@ export class DetailsPage {
     this
       .storageService
       .isFav(this.poney)
-      .then(isFav => {
-        console.log('looks fav ?', isFav)
-      })
-      .catch(error => {
-        console.error('Cant know if fav');
-      })
+      .subscribe(
+        isFav => {
+          this.isFav = isFav === true; // Javascript baby, what if undefined or shit like that ?
+        },
+        error => {
+          console.error('Cant know if fav', error);
+        }
+      )
   }
 
   toggleFavorite() {
     console.log('Favorite switch')
+    let oldFav = this.isFav;
     this.isFav = !this.isFav;
+    this
+      .storageService
+      .favPony(this.poney, this.isFav)
+      .subscribe(
+        () => {
+          console.log('Fav ok');
+        },
+        error => {
+          console.error('Cant fav');
+          this.isFav = oldFav;
+        }
+      )
   }
 
   static navigationParameters(poney: any): any {

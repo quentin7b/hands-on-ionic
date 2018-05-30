@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+
+import 'rxjs/add/observable/fromPromise';
+import { Observable } from "rxjs/Observable";
  
 @Injectable()
 export class StorageService {
@@ -8,15 +11,11 @@ export class StorageService {
  
     }
 
-    public isFav(pony: any) {
-        return this.storage.get(pony.name);
+    public isFav(pony: any): Observable<boolean> {
+        return Observable.fromPromise(this.storage.get(pony.name));
     }
  
-    public favPony(pony: any) {
-        return this.storage.set(pony.name, true);
-    }
-
-    public unfavPony(pony: any) {
-        return this.storage.set(pony.name, false);
+    public favPony(pony: any, isFav: boolean): Observable<any> {
+        return Observable.fromPromise(this.storage.set(pony.name, isFav));
     }
 }
