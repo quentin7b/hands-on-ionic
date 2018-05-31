@@ -1,9 +1,9 @@
 <!-- Generated template for the ListPoneyItemComponent component -->
 <ion-item ion-item>
   <ion-avatar item-start>
-    <img src="{{ avatar_url }}">
+    <img src="{{ poney.avatar_url }}">
   </ion-avatar>
-  <h2>{{ name }}</h2>
-  <p>{{ description }}</p>
-  <ion-icon name="{{ isFav ? 'heart' : 'heart-outline' }}" item-end></ion-icon>
+  <h2>{{ poney.name }}</h2>
+  <p>{{ poney.description }}</p>
+  <ion-icon name="{{ poney.isFav ? 'heart' : 'heart-outline' }}" item-end color="primary"></ion-icon>
 </ion-item>

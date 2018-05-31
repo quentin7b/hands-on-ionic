@@ -13,22 +13,9 @@ import { Component, Input } from '@angular/core';
 export class ListPoneyItemComponent {
 
   @Input("poney") poney: any;
-
-  avatar_url: string;
-  name: string;
-  description: string;
-  isFav: boolean;
-
+  
   constructor() {
     console.log('Hello ListPoneyItemComponent Component');
-    this.poney = {};
-  }
-
-  ngAfterContentInit() {
-    this.avatar_url = this.poney.avatar_url
-    this.name = this.poney.name
-    this.description = this.poney.description
-    this.isFav = this.poney.isFav
   }
 
 }
