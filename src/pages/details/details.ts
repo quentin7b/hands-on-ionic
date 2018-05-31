@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { StorageService } from '../../services/StorageService';
+import { PonyService } from '../../services/PonyService';
 
 /**
  * Generated class for the DetailsPage page.
@@ -18,41 +18,29 @@ import { StorageService } from '../../services/StorageService';
 export class DetailsPage {
 
   poney: {};
-  isFav: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storageService: StorageService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private ponyService: PonyService) {
     this.poney = navParams.get("poney");
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailsPage');
-    this
-      .storageService
-      .isFav(this.poney)
-      .subscribe(
-        isFav => {
-          this.isFav = isFav === true; // Javascript baby, what if undefined or shit like that ?
-        },
-        error => {
-          console.error('Cant know if fav', error);
-        }
-      )
   }
 
   toggleFavorite() {
     console.log('Favorite switch')
-    let oldFav = this.isFav;
-    this.isFav = !this.isFav;
+    let oldFav = this.poney['isFav'];
+    this.poney['isFav'] = !oldFav
     this
-      .storageService
-      .favPony(this.poney, this.isFav)
+      .ponyService
+      .favPony(this.poney, this.poney['isFav'])
       .subscribe(
         () => {
           console.log('Fav ok');
         },
         error => {
           console.error('Cant fav');
-          this.isFav = oldFav;
+          this.poney['isFav'] = oldFav;
         }
       )
   }

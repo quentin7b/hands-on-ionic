@@ -29,4 +29,8 @@ export class PonyService {
             .toArray()
     }
 
+    public favPony(pony: any, isFav: boolean): Observable<void> {
+        return this.storage.favPony(pony, isFav)
+    }
+
 }

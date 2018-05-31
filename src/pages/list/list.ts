@@ -23,8 +23,8 @@ export class ListPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private ponyService: PonyService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ListPage');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter ListPage');
     this.ponyService.listPonies().subscribe(
       data => this.ponies = data,
       err => console.error('Oops in API', err),
