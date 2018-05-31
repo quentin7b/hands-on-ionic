@@ -14,6 +14,7 @@ import { DetailsPage } from '../pages/details/details';
 
 import { APIService } from '../services/APIService'
 import { StorageService } from '../services/StorageService'
+import { PonyService } from '../services/PonyService'
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { StorageService } from '../services/StorageService'
     SplashScreen,
     APIService,
     StorageService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    PonyService,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
