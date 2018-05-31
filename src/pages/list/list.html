@@ -15,13 +15,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item ion-item *ngFor="let poney of ponies" (click)="showPoney(poney)">
-      <ion-avatar item-start>
-        <img src="{{ poney.avatar_url }}">
-      </ion-avatar>
-      <h2>{{ poney.name }}</h2>
-      <p>{{ poney.description }}</p>
-      <ion-icon name="{{ poney.isFav ? 'heart' : 'heart-outline' }}" item-end></ion-icon>
-    </ion-item>
+    <list-poney-item *ngFor="let poney of ponies" [poney]="poney" (click)="showPoney(poney)">
+    </list-poney-item>
   </ion-list>
 </ion-content>

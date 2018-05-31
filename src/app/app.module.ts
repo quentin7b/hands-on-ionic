@@ -7,6 +7,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { IonicStorageModule } from '@ionic/storage';
 
+import { ComponentsModule } from '../components/components.module'
+
 
 import { MyApp } from './app.component';
 import { ListPage } from '../pages/list/list';
@@ -27,7 +29,8 @@ import { PonyService } from '../services/PonyService'
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
