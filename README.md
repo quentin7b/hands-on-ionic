@@ -8,16 +8,16 @@ Official doc is pretty good, have a look at https://ionicframework.com/docs/
 
 > Note, im writing this with ionic 3.20.0
 
-- [x] [start an empty project](#Start-an-empty-project)
-- [x] [understand the package](#Understand-the-package)
-- [x] [add a new page](#Add-a-new-page)
-- [x] [navigation](#Navigation-between-pages)
-- [x] [add api call](#Add-API-call)
-- [x] [add local storage](#Add-local-storage)
-- [x] [add user interaction](#Add-user-interaction)
-- [x] [add a repository that manage access to objects](#Add-a-repository)
-- [x] [add a custom component](#Add-custom-component)
-- [x] [add a model](#Add-a-model)
+- [x] [start an empty project](#start-an-empty-project)
+- [x] [understand the package](#understand-the-package)
+- [x] [add a new page](#add-a-new-page)
+- [x] [navigation](#navigation-between-pages)
+- [x] [add api call](#add-api-call)
+- [x] [add local storage](#add-local-storage)
+- [x] [add user interaction](#add-user-interaction)
+- [x] [add a repository that manage access to objects](#add-a-repository)
+- [x] [add a custom component](#add-custom-component)
+- [x] [add a model](#add-a-model)
 - [ ] [use the component only where you need it]()
 - [ ] add internationalization
 - [ ] add lazy loading 
@@ -142,11 +142,11 @@ The one we're looking for is [`ion-list`](https://ionicframework.com/docs/compon
 
 Let's add it into our `src/page/list/list.html` within the `ion-content` with is the "body" of our screen.
 
-```htmlmixed=
+```html
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>THe Poney Heaven</ion-title>
+    <ion-title>THe pony Heaven</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -160,7 +160,7 @@ Let's add it into our `src/page/list/list.html` within the `ion-content` with is
 
 But our list is empty, we need to add rows with content, it is called `ion-item`. So add it
 
-```htmlmixed=
+```html
 <ion-content>
   <ion-list>
       <ion-item ion-item>
@@ -171,7 +171,7 @@ But our list is empty, we need to add rows with content, it is called `ion-item`
 
 Still, there is nothing, let's add a basic display. `ionic` provides a lot of possible displays that are compatible with platform designs.
 
-```htmlmixed=
+```html
 <ion-content>
   <ion-list>
     <ion-item ion-item>
@@ -193,7 +193,7 @@ This is done with angular.
 Add `*ngFor="let item of items"` in the `<ion-item>` to bind the model of each row. 
 And change the binded variables as, the model of each row will be `item`.
 
-```htmlmixed=
+```html
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let item of items" ion-item>
@@ -212,7 +212,7 @@ Here we are, we just need to bind this `items` in our **list.ts** to finalize !
 
 Open **list.ts**
 
-```typescript=
+```typescript
 @IonicPage()
 @Component({
   selector: 'page-list',
@@ -233,7 +233,7 @@ We need a member of `ListPage` called items, and we need to fill it with items.
 
 > We pass over the model here, let's be dirty and we'll be back on the model later.
 
-```typescript=
+```typescript
 @IonicPage()
 @Component({
   selector: 'page-list',
@@ -283,7 +283,7 @@ Open **list/list.html**
 
 Then listen to **click** event by adding
 
-```htmlmixed=
+```html
 <ion-item *ngFor="let item of items" (click)="showItem(item)" ion-item>
 ```
 
@@ -291,7 +291,7 @@ This will listen to the **click** item and trigger the method `showItem` from `L
 
 So let's add `showItem` method in `ListPage`.
 
-```typescript=
+```typescript
 export class ListPage {
 
   ...
@@ -303,10 +303,11 @@ export class ListPage {
 ```
 
 Then we want to open the `DetailsPage`, so we need to
+
 1. Import it to be aware it exists
 2. Start it with the navigation
 
-```typescript=
+```typescript
 ...
 import { DetailsPage } from '../details/details';
 
@@ -325,7 +326,7 @@ export class ListPage {
 
 And now, we want to give the item as parameter to `DetailsPage`, so add it. As simple as that.
 
-```typescript=
+```typescript
 showItem(item) {
     this.navCtrl.push(DetailsPage, item);
 }
@@ -336,7 +337,7 @@ Unless we don't know how to get the parameter in **DetailsPage**.
 
 It is simple, just get it from the `navParams` that your `constructor` has as parameter.
 
-```typescript=
+```typescript
 constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.item = navParams.get("item");
 }
@@ -347,7 +348,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams) {
 > Means that instead of passing item as parameter, we call a `static` method from `DetailsPage`
 > For example, 
 > In **details.ts**
-> ```typescript=
+> ```typescript
 > export class DetailsPage {
 >   ...
 >   static navigationParameters(item: any): any {
@@ -358,7 +359,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams) {
 > }
 > ```
 > And in **list.ts**
-> ```typescript=
+> ```typescript
 > showItem(item) {
 >   this.navCtrl.push(
 >     DetailsPage,
@@ -366,7 +367,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams) {
 >  }
 > ```
 > But it's up to you to do it like that or not.
----
+----
 
 ## Add API call
 
@@ -380,13 +381,12 @@ You can do it in your view, but this is a bad idea, best way to do that is to cr
 ### Create a service
 
 > Note that you can do it with `ionic generate provider {providerName}`. This will generate all the files you need in a **providers** directory, update the files that have to be updated and it will work. 
-
 > Here I've made it by hand, so it is not in **providers** but un **services**
 
 So lets create a folder `src/services` where we'll put our services. 
 And create a file **APIService.ts** that will contain our service.
 
-```typescript=
+```typescript
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
@@ -403,13 +403,13 @@ export class APIService {
         // Fetch items over the internet
     }
 }
-``` 
+```
 
 Our service will be injected in our views so we need it to be `Injectable` and will do **http** requests. Thats the `imports`.
 
 Then, we'll do the requests:
 
-```typescript=
+```typescript
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/map';
 
@@ -434,7 +434,7 @@ As we obtain a response with json format, we transform it to return the parsed j
 
 Once your service is done, like everyting, delcare it in **app.module.ts** but in the `providers` part.
 
-```typescript=
+```typescript
 @NgModule({
     providers: [
         ....
@@ -446,7 +446,7 @@ Once your service is done, like everyting, delcare it in **app.module.ts** but i
 
 Then you can use it in your views by injecting it. Go back to **list.ts**
 
-```typescript=
+```typescript
 import { APIService } from '../../services/APIService'
 
 ...
@@ -465,7 +465,7 @@ What we've done here is asking for `APIService` to be injected in our page as `i
 
 Now we can use it instead of the **fake data**
 
-```typescript=
+```typescript
 ionViewWillEnter() {
     console.log('ionViewWillEnter ListPage');
     this.itemsAPI.listItems().subscribe(
@@ -483,7 +483,6 @@ Now when the view is started, it call the `APIService#listItems()` method and pu
 Ok, now we have a simple case, let's complicate it with something local, like add a *flag* on an item. 
 The API doesn't allow a method for that, and it is just for you, so do it with local storage.
 
-
 ### Plugin
 
 Cordova/Ionic provide [`Storage` from `@ionic/storage`](https://ionicframework.com/docs/storage/) to do that!
@@ -494,7 +493,7 @@ Follow the instructions to install it.
 
 Now what we want is another service, but here let's call it **StorageService.ts**
 
-```typescript=
+```typescript
 @Injectable()
 export class StorageService {
  
@@ -503,11 +502,11 @@ export class StorageService {
     }
 
     public isFav(item: any): Observable<boolean> {
-        
+        // Todo
     }
  
     public favItem(item: any, isFav: boolean): Observable<any> {
-        
+        // Todo
     }
 }
 ```
@@ -517,15 +516,16 @@ But we started using `Observable` in the other service and it is a common patter
 
 So we'll need to transform our `Promise` into `Observable`
 
-```typescript=
+```typescript
 import 'rxjs/add/observable/fromPromise';
 import { Observable } from "rxjs/Observable";
 ```
-```typescript=
+
+```typescript
 public isFav(item: any): Observable<boolean> {
     return Observable.fromPromise(this.storage.get(item.name));
 }
- 
+
 public favItem(item: any, isFav: boolean): Observable<any> {
     return Observable.fromPromise(this.storage.set(item.name, isFav));
 }
@@ -544,7 +544,7 @@ We want to fav the item when some iteraction is done on the view.
 
 So let's create a method like `toggleFav()` that will be triggered.
 
-```typescript=
+```typescript
 export class DetailsPage {
 
     isFav: boolean;
@@ -562,7 +562,7 @@ Now how can we trigger the method.
 
 Just add a button in the **details.html**
 
-```htmlmixed=
+```html
 <button ion-button clear icon-only (click)="toggleFavorite()">
     <ion-icon name="{{ isFav ? 'heart' : 'heart-outline' }}"></ion-icon>
 </button>
@@ -572,7 +572,7 @@ As simple as that, when the button is `click`ed we trigger the call to `toggleFa
 
 Now what to do in `toogleFavorite`, let's use our `StorageService` to update the value.
 
-```typescript=
+```typescript
 toggleFavorite() {
     console.log('Favorite switch')
     let oldFav = this.isFav;
@@ -619,7 +619,7 @@ This **repository** will need access to `APIService` and to `StorageService` and
 
 So let's create `ItemService.ts` and inject it `APIService` and `StorageService`.
 
-```typescript=
+```typescript
 import { Injectable } from '@angular/core';
 
 import { APIService } from './APIService';
@@ -657,7 +657,7 @@ Here we go.
 * Return the list of new items
 
 You'll need some rx operators to import
-```typescript=
+```typescript
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/mergeMap';
@@ -665,7 +665,7 @@ import 'rxjs/add/operator/mergeMap';
 
 And so
 
-```typescript=
+```typescript
 public listItems(): Observable<any[]> {
     return this.api
         .allItems() // Find all on the API
@@ -691,7 +691,7 @@ public listItems(): Observable<any[]> {
 
 Simpler, just update the fav
 
-```typescript=
+```typescript
 public favItem(item: any, isFav: boolean): Observable<void> {
     return this.storage.favItem(item, isFav)
 }
@@ -703,7 +703,7 @@ Once our service is done, we can use it to replace the use of our 2 old services
 
 Declare it everywhere you need and replace calls in  **list.ts**
 
-```typescript=
+```typescript
 ionViewWillEnter() {
     console.log('ionViewWillEnter ListPage');
     this.itemsAPI.listItems().subscribe(
@@ -713,8 +713,10 @@ ionViewWillEnter() {
     );
 }
 ```
+
 is now
-```typescript=
+
+```typescript
 ionViewWillEnter() {
     console.log('ionViewWillEnter ListPage');
     this.itemService.listItems().subscribe(
@@ -724,12 +726,13 @@ ionViewWillEnter() {
     );
 }
 ```
+
 No big deal, but in `this.items` we have the `isFav` information added!
 
 And in **details.ts** the item is given in parameters, so we don't need to initialize `isFav` anymore.
 In fact we don't need `isFav` anymore as it is part of our model.
 
-```typescript=
+```typescript
 toggleFavorite() {
     console.log('Favorite switch')
     let oldFav = this.isFav;
@@ -748,8 +751,10 @@ toggleFavorite() {
       )
 }
 ```
+
 is now
-```typescript=
+
+```typescript
 toggleFavorite() {
     console.log('Favorite switch')
     let oldFav = this.item['isFav'];
@@ -774,13 +779,16 @@ No more `isFav` property. No need to know it is in storage and not in api.
 Don't forget to change your **details.html**
 
 from:
-```htmlmixed=
+
+```html
 <button ion-button clear icon-only (click)="toggleFavorite()">
     <ion-icon name="{{ isFav ? 'heart' : 'heart-outline' }}"></ion-icon>
 </button>
 ```
+
 to:
-```htmlmixed=
+
+```html
 <button ion-button clear icon-only (click)="toggleFavorite()">
     <ion-icon name="{{ item.isFav ? 'heart' : 'heart-outline' }}"></ion-icon>
 </button>
@@ -793,7 +801,7 @@ Now lets imagine we want to add the fav information on the list.
 
 We could do it this way:
 
-```htmlmixed=
+```html
 <ion-list>
     <ion-item *ngFor="let item of items" (click)="showItem(item)" ion-item>
       <ion-avatar item-start>
@@ -807,7 +815,7 @@ We could do it this way:
 
 But it looks complicated. What if we could write
 
-```htmlmixed=
+```html
 <ion-list>
     <list-custom-item *ngFor="let item of items" [item]="item" (click)="showItem(item)">
     </list-custom-item>
@@ -822,7 +830,7 @@ For that, we need to create a component, and, wait, there is a command for that
 ionic generate component listCustomItem
 ```
 
-It will create a folder **compontents** inside **app** folder. 
+It will create a folder **compontents** inside **app** folder.
 
 This is the compontent we're going to use.
 
@@ -842,7 +850,7 @@ It a kind of package of components.
 
 So add it in **app.module.ts** in the `imports`
 
-```typescript=
+```typescript
 ...
 import { ComponentsModule } from '../components/components.module'
 
@@ -861,7 +869,7 @@ More, to be able to use it in the ionic mode. We need to declare the fact that i
 
 So in **components.module.ts** import `IonicModule`
 
-```typescript=
+```typescript
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
 
@@ -878,7 +886,7 @@ Now lets build our compontent itslef. Back to **src/components/list-custom-item*
 
 Fill the **list-custom-item.html** with the body of our row.
 
-```typescript=
+```typescript
 <ion-item ion-item>
   <ion-avatar item-start>
     <img src="{{ item.avatar_url }}">
@@ -895,7 +903,7 @@ So, now let's open the **list-custom-item.ts** there is nothing about an `item` 
 We need to declare the fact that we expect a property `item` from the one who uses us.
 For that, we use the `@Input` keyword.
 
-```typescript=
+```typescript
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -920,7 +928,6 @@ There we go. When our component will be invoked, with an `item` parameter, it wi
 
 We just have to update the **list.html** like we did above and it will rocks.
 
-
 ## Add a model
 
 Since our code start being "complex", dealing with `any` is not a good option.
@@ -943,7 +950,7 @@ A pony has:
 
 So let's do it:
 
-```typescript=
+```typescript
 export class Pony {
 
     avatarUrl: string;
@@ -967,21 +974,21 @@ Then, there is still 2 things to do:
 
 In **services/PonyService.ts**
 
-```typescript=
+```typescript
 public listPonies(): Observable<Pony[]> {
     return this.api
         .allPonies()
         .flatMap(x => x)
-        .flatMap(poney => {
+        .flatMap(pony => {
             return this.storage
-                .isFav(poney)
+                .isFav(pony)
                 .map(isFav => {
-                    poney['isFav'] = isFav;
+                    pony['isFav'] = isFav;
                     return new Pony(
-                        poney['name'],
-                        poney['description'],
-                        poney['avatar_url'],
-                        poney['isFav']
+                        pony['name'],
+                        pony['description'],
+                        pony['avatar_url'],
+                        pony['isFav']
                     )
                 })
         })
@@ -995,38 +1002,38 @@ In the map, we convert the anonymous object in a `Pony` object by using its cons
 
 And now in our pages, for example in **list.ts**
 
-```typescript=
+```typescript
 ponies: any[]
 ```
 
 is now
 
-```typescript=
+```typescript
 ponies: Pony[]
 ```
 
 In our list item **list-pony-item/list-pony-item.ts**
 
-```typescript=
-@Input("poney") poney: any;
+```typescript
+@Input("pony") pony: any;
 ```
 
 is now 
 
-```typescript=
-@Input("poney") poney: Pony;
+```typescript
+@Input("pony") pony: Pony;
 ```
 
-And we can update the **list-poney-item.html**
+And we can update the **list-pony-item.html**
 
-```htmlmixed=
+```html
 <ion-item ion-item>
   <ion-avatar item-start>
-    <img src="{{ poney.avatarUrl }}">
+    <img src="{{ pony.avatarUrl }}">
   </ion-avatar>
-  <h2>{{ poney.name }}</h2>
-  <p>{{ poney.description }}</p>
-  <ion-icon name="{{ poney.isFavorite ? 'heart' : 'heart-outline' }}" item-end color="primary"></ion-icon>
+  <h2>{{ pony.name }}</h2>
+  <p>{{ pony.description }}</p>
+  <ion-icon name="{{ pony.isFavorite ? 'heart' : 'heart-outline' }}" item-end color="primary"></ion-icon>
 </ion-item>
 ```
 

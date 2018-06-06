@@ -18,10 +18,10 @@ import { Pony } from '../../models/pony.model';
 })
 export class DetailsPage {
 
-  poney: Pony;
+  pony: Pony;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private ponyService: PonyService) {
-    this.poney = navParams.get("poney");
+    this.pony = navParams.get("pony");
   }
 
   ionViewDidLoad() {
@@ -30,25 +30,25 @@ export class DetailsPage {
 
   toggleFavorite() {
     console.log('Favorite switch')
-    let oldFav = this.poney.isFavorite;
-    this.poney.isFavorite = !oldFav
+    let oldFav = this.pony.isFavorite;
+    this.pony.isFavorite = !oldFav
     this
       .ponyService
-      .favPony(this.poney, this.poney.isFavorite)
+      .favPony(this.pony, this.pony.isFavorite)
       .subscribe(
         () => {
           console.log('Fav ok');
         },
         error => {
           console.error('Cant fav');
-          this.poney.isFavorite = oldFav;
+          this.pony.isFavorite = oldFav;
         }
       )
   }
 
-  static navigationParameters(poney: Pony): any {
+  static navigationParameters(pony: Pony): any {
     return {
-      poney: poney
+      pony: pony
     }
   }
 

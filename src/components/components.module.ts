@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
 
-import { ListPoneyItemComponent } from './list-poney-item/list-poney-item';
+import { ListPonyItemComponent } from './list-pony-item/list-pony-item';
 @NgModule({
-	declarations: [ListPoneyItemComponent],
+	declarations: [ListPonyItemComponent],
 	imports: [IonicModule],
-	exports: [ListPoneyItemComponent]
+	exports: [ListPonyItemComponent]
 })
 export class ComponentsModule {}

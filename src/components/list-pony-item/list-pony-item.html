@@ -1,0 +1,8 @@
+<ion-item ion-item>
+  <ion-avatar item-start>
+    <img src="{{ pony.avatarUrl }}">
+  </ion-avatar>
+  <h2>{{ pony.name }}</h2>
+  <p>{{ pony.description }}</p>
+  <ion-icon name="{{ pony.isFavorite ? 'heart' : 'heart-outline' }}" item-end color="primary"></ion-icon>
+</ion-item>

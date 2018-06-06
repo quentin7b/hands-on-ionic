@@ -33,8 +33,8 @@ export class ListPage {
     );
   }
 
-  showPoney(poney) {
-    this.navCtrl.push(DetailsPage, DetailsPage.navigationParameters(poney));
+  showPony(pony) {
+    this.navCtrl.push(DetailsPage, DetailsPage.navigationParameters(pony));
   }
 
 }
