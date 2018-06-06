@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DetailsPage } from '../details/details';
 
 import { PonyService } from '../../services/PonyService'
+import { Pony } from '../../models/pony.model';
 
 /**
  * Generated class for the ListPage page.
@@ -18,7 +19,7 @@ import { PonyService } from '../../services/PonyService'
 })
 export class ListPage {
 
-  ponies: any[]
+  ponies: Pony[]
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private ponyService: PonyService) {
   }

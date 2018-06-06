@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Pony } from '../../models/pony.model';
 
 /**
  * Generated class for the ListPoneyItemComponent component.
@@ -12,7 +13,7 @@ import { Component, Input } from '@angular/core';
 })
 export class ListPoneyItemComponent {
 
-  @Input("poney") poney: any;
+  @Input("poney") poney: Pony;
   
   constructor() {
     console.log('Hello ListPoneyItemComponent Component');

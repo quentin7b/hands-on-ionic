@@ -17,6 +17,7 @@ Official doc is pretty good, have a look at https://ionicframework.com/docs/
 - [x] [add user interaction](#Add-user-interaction)
 - [x] [add a repository that manage access to objects](#Add-a-repository)
 - [x] [add a custom component](#Add-custom-component)
+- [x] [add a model](#Add-a-model)
 - [ ] [use the component only where you need it]()
 - [ ] add internationalization
 - [ ] add lazy loading 
@@ -918,3 +919,120 @@ export class ListCustomItemComponent {
 There we go. When our component will be invoked, with an `item` parameter, it will display our row.
 
 We just have to update the **list.html** like we did above and it will rocks.
+
+
+## Add a model
+
+Since our code start being "complex", dealing with `any` is not a good option.
+
+As in every language, the best way to deal is objects is to create model.
+
+So let's build a model for our pony. 
+
+1. Create a folder **models** in **src**
+2. In this folder create a file called **pony.model.ts**
+
+In this file, we will put our model of a pony.
+
+A pony has:
+
+- a name
+- a description
+- an avatar (url)
+- an flag is fav
+
+So let's do it:
+
+```typescript=
+export class Pony {
+
+    avatarUrl: string;
+    name: string;
+    description: string;
+    isFavorite: boolean;
+
+    constructor(name, description, avatarUrl, isFavorite) {
+        this.name = name
+        this.description = description
+        this.avatarUrl = avatarUrl
+        this.isFavorite = isFavorite
+    }
+}
+```
+
+Then, there is still 2 things to do:
+
+1. Our `PonyService` should deal with `Pony` and not `any`
+2. So do our pages. 
+
+In **services/PonyService.ts**
+
+```typescript=
+public listPonies(): Observable<Pony[]> {
+    return this.api
+        .allPonies()
+        .flatMap(x => x)
+        .flatMap(poney => {
+            return this.storage
+                .isFav(poney)
+                .map(isFav => {
+                    poney['isFav'] = isFav;
+                    return new Pony(
+                        poney['name'],
+                        poney['description'],
+                        poney['avatar_url'],
+                        poney['isFav']
+                    )
+                })
+        })
+        .toArray()
+}
+```
+
+In the map, we convert the anonymous object in a `Pony` object by using its consctructor.
+
+> Don't forget the `import { Pony } from '../models/pony.model'`
+
+And now in our pages, for example in **list.ts**
+
+```typescript=
+ponies: any[]
+```
+
+is now
+
+```typescript=
+ponies: Pony[]
+```
+
+In our list item **list-pony-item/list-pony-item.ts**
+
+```typescript=
+@Input("poney") poney: any;
+```
+
+is now 
+
+```typescript=
+@Input("poney") poney: Pony;
+```
+
+And we can update the **list-poney-item.html**
+
+```htmlmixed=
+<ion-item ion-item>
+  <ion-avatar item-start>
+    <img src="{{ poney.avatarUrl }}">
+  </ion-avatar>
+  <h2>{{ poney.name }}</h2>
+  <p>{{ poney.description }}</p>
+  <ion-icon name="{{ poney.isFavorite ? 'heart' : 'heart-outline' }}" item-end color="primary"></ion-icon>
+</ion-item>
+```
+
+Because `avatar_url` is now `avatarUrl` and `isFav` is `isFavorite`
+
+Don't forget to change all the `any` referencing a `Pony` in your code.
+
+- in details
+- in the navigation

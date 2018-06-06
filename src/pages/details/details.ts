@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { PonyService } from '../../services/PonyService';
+import { Pony } from '../../models/pony.model';
 
 /**
  * Generated class for the DetailsPage page.
@@ -17,7 +18,7 @@ import { PonyService } from '../../services/PonyService';
 })
 export class DetailsPage {
 
-  poney: {};
+  poney: Pony;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private ponyService: PonyService) {
     this.poney = navParams.get("poney");
@@ -29,23 +30,23 @@ export class DetailsPage {
 
   toggleFavorite() {
     console.log('Favorite switch')
-    let oldFav = this.poney['isFav'];
-    this.poney['isFav'] = !oldFav
+    let oldFav = this.poney.isFavorite;
+    this.poney.isFavorite = !oldFav
     this
       .ponyService
-      .favPony(this.poney, this.poney['isFav'])
+      .favPony(this.poney, this.poney.isFavorite)
       .subscribe(
         () => {
           console.log('Fav ok');
         },
         error => {
           console.error('Cant fav');
-          this.poney['isFav'] = oldFav;
+          this.poney.isFavorite = oldFav;
         }
       )
   }
 
-  static navigationParameters(poney: any): any {
+  static navigationParameters(poney: Pony): any {
     return {
       poney: poney
     }

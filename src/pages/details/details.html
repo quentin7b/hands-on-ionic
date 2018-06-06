@@ -14,7 +14,7 @@
 
 
 <ion-content>
-  <img src="{{ poney.avatar_url }}" />
+  <img src="{{ poney.avatarUrl }}" />
   <ion-grid padding>
     <ion-row align-items-center>
       <ion-col>
@@ -24,7 +24,7 @@
       </ion-col>
       <ion-col col-2>
         <button ion-button clear icon-only (click)="toggleFavorite()">
-          <ion-icon name="{{ poney.isFav ? 'heart' : 'heart-outline' }}"></ion-icon>
+          <ion-icon name="{{ poney.isFavorite ? 'heart' : 'heart-outline' }}"></ion-icon>
         </button>
       </ion-col>
     </ion-row>

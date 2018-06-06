@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { APIService } from './APIService';
 import { StorageService } from './StorageService';
 
+import { Pony } from '../models/pony.model';
+
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/mergeMap';
@@ -14,7 +16,7 @@ export class PonyService {
 
     }
 
-    public listPonies(): Observable<any[]> {
+    public listPonies(): Observable<Pony[]> {
         return this.api
             .allPonies()
             .flatMap(x => x)
@@ -23,7 +25,12 @@ export class PonyService {
                     .isFav(poney)
                     .map(isFav => {
                         poney['isFav'] = isFav;
-                        return poney;
+                        return new Pony(
+                            poney['name'],
+                            poney['description'],
+                            poney['avatar_url'],
+                            poney['isFav']
+                        )
                     })
             })
             .toArray()
