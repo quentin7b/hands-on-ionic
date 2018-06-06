@@ -378,6 +378,10 @@ You can do it in your view, but this is a bad idea, best way to do that is to cr
 
 ### Create a service
 
+> Note that you can do it with `ionic generate provider {providerName}`. This will generate all the files you need in a **providers** directory, update the files that have to be updated and it will work. 
+
+> Here I've made it by hand, so it is not in **providers** but un **services**
+
 So lets create a folder `src/services` where we'll put our services. 
 And create a file **APIService.ts** that will contain our service.
 
